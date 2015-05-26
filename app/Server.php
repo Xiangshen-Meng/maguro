@@ -10,4 +10,9 @@ class Server extends Model {
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function sites()
+    {
+        return $this->hasMany('App\Site');
+    }
 }

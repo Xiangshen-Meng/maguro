@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ServerController extends Controller {
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,7 +26,8 @@ class ServerController extends Controller {
 	 */
 	public function index()
 	{
-		//
+        $servers = Auth::user()->servers;
+        return view('server.index', compact('servers'));
 	}
 
 	/**
@@ -48,7 +59,8 @@ class ServerController extends Controller {
 	 */
 	public function show($server)
 	{
-		return view('server.show', compact('server'));
+        $sites = $server->sites;
+		return view('server.show', compact('server', 'sites'));
 	}
 
 	/**
@@ -86,6 +98,7 @@ class ServerController extends Controller {
 	 */
 	public function destroy($server)
 	{
+        $server->sites()->delete();
         $server->delete();
         return redirect('home');
 	}

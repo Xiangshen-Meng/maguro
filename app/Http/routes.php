@@ -21,3 +21,4 @@ Route::controllers([
 ]);
 
 Route::resource('server', 'ServerController');
+Route::resource('server.site', 'SiteController', ['except' => ['index']]);

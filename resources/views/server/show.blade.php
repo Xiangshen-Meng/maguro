@@ -20,7 +20,30 @@
                         <h4>Admin user</h4>
                         <p>{{ $server->admin_user }}</p>
                         <hr/>
-                        <a href="{{ route('server.create') }}" class="btn btn-primary">
+                        <div>
+                            <table class="table">
+                                <caption>All sites.</caption>
+                                <thead>
+                                <tr>
+                                    <th>Site Name</th>
+                                    <th>Site Domain</th>
+                                    <th>Site Port</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($sites as $site)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('server.site.show', [$server, $site]) }}">{{ $site->name }}</a>
+                                        </td>
+                                        <td>{{ $site->domain }}</td>
+                                        <td>{{ $site->port }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="{{ route('server.site.create', $server) }}" class="btn btn-primary">
                             Create Site
                         </a>
                     </div>
