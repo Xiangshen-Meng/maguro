@@ -103,4 +103,36 @@ class ServerController extends Controller {
         return redirect('home');
 	}
 
+    public function bash($server)
+    {
+        $cmd_stop_service = "service ghost stop; service nginx stop;";
+        $cmd_clean_up_ghost = "rm /etc/nginx/sites-enabled/ghost;rm /etc/nginx/sites-available/ghost;rm /etc/init.d/ghost;rm /etc/init/ghost.conf;rm -rf /var/www/ghost;";
+
+        $build_cmd = $cmd_stop_service . $cmd_clean_up_ghost;
+
+        foreach($server->sites as $site) {
+            $nginx_service_content = view('templates.nginx_config', compact('site'))->render();
+            $init_service_content = view('templates.init_service', compact('site'))->render();
+            $ghost_config_content = view('templates.ghost_config_0_6_4', compact('site'))->render();
+
+            $site_name = str_replace('.', '-', $site->domain);
+            $cmd_nginx_config = "echo '" . $nginx_service_content . "' > /etc/nginx/sites-available/" . $site_name . '.conf;cd /etc/nginx/sites-enabled;ln -s ../sites-available/'. $site_name . '.conf ./;';
+            $cmd_initd_config = "echo '" . $init_service_content . "' > /etc/init/ghost-" . $site_name . ".conf;cd /etc/init.d; ln -s /etc/init/ghost-" . $site_name . ".conf ./ghost-" . $site_name . ";";
+
+            $build_cmd .= $cmd_nginx_config;
+            $build_cmd .= $cmd_initd_config;
+
+            $cmd_download_ghost = "cd /tmp;wget https://ghost.org/zip/ghost-0.6.4.zip -O ghost.zip;apt-get install -y unzip;rm -rf ghost;unzip ghost.zip -d ghost;";
+            $cmd_ghost_config = 'echo "' . $ghost_config_content . '" > /tmp/ghost/config.js;mv /tmp/ghost /var/www/' . $site->domain . ' && cd /var/www/'. $site->domain .' && npm install --production; chown -R ghost:ghost /var/www/' . $site->domain . ';';
+            $build_cmd .= $cmd_download_ghost;
+            $build_cmd .= $cmd_ghost_config;
+
+            $cmd_ghost_start = 'service ghost-' . $site_name . ' start;';
+            $build_cmd .= $cmd_ghost_start;
+        }
+        $cmd_restart_service = 'service nginx restart;';
+        $build_cmd .= $cmd_restart_service;
+        dd($build_cmd);
+    }
+
 }
