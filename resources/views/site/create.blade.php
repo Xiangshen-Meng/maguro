@@ -10,8 +10,7 @@
                     <div class="panel-body">
                         @include('partials._error_message')
 
-                        {!! Form::open(['route' => ['server.site.store', $server]]) !!}
-                        {!! Form::hidden('server_id', $server->id) !!}
+                        {!! Form::open(['route' => 'site.store']) !!}
                         @include('site._form')
                         {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
                         {!! Form::close() !!}

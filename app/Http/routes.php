@@ -22,4 +22,4 @@ Route::controllers([
 
 Route::get('server/{server}/bash', 'ServerController@bash');
 Route::resource('server', 'ServerController');
-Route::resource('server.site', 'SiteController', ['except' => ['index']]);
+Route::resource('site', 'SiteController', ['except' => ['index']]);

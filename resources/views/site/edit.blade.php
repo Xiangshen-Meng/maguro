@@ -8,18 +8,18 @@
                     <div class="panel-heading">
                         Edit site
                         <span class="pull-right">
-                            <a href="{{ route('server.site.show', [$server, $site]) }}">Back</a>
+                            <a href="{{ route('site.show', $site) }}">Back</a>
                         </span>
                     </div>
 
                     <div class="panel-body">
                         @include('partials._error_message')
 
-                        {!! Form::model($site, ['route' => ['server.site.update', $server, $site], 'method' => 'PUT']) !!}
+                        {!! Form::model($site, ['route' => ['site.update', $site], 'method' => 'PUT']) !!}
                         @include('site._form')
                         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
                         {!! Form::close() !!}
-                        {!! Form::model($server, ['route' => ['server.site.destroy', $server, $site], 'method' => 'DELETE']) !!}
+                        {!! Form::model($site, ['route' => ['site.destroy', $site], 'method' => 'DELETE']) !!}
                         {!! Form::submit('DELETE', ['class' => 'btn btn-danger btn-xs pull-right']) !!}
                         {!! Form::close() !!}
                     </div>

@@ -24,9 +24,9 @@ class SiteController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create($server)
+	public function create()
 	{
-        return view('site.create', compact('server'));
+        return view('site.create');
 	}
 
 	/**
@@ -34,10 +34,10 @@ class SiteController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(SiteRequest $request, $server)
+	public function store(SiteRequest $request)
 	{
         Auth::user()->sites()->create($request->all());
-        return redirect()->route('server.show', $server);
+        return redirect('home');
 	}
 
 	/**
@@ -46,9 +46,9 @@ class SiteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($server, $site)
+	public function show($site)
 	{
-        return view('site.show', compact('server', 'site'));
+        return view('site.show', compact('site'));
 	}
 
 	/**
@@ -57,10 +57,10 @@ class SiteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($server, $site)
+	public function edit($site)
 	{
         if ($site->user_id == Auth::id()) {
-            return view('site.edit', compact('server', 'site'));
+            return view('site.edit', compact('site'));
         } else {
             return redirect('home')->with('message', "You can't edit this site.");
         }
@@ -72,10 +72,10 @@ class SiteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(SiteRequest $request, $server, $site)
+	public function update(SiteRequest $request, $site)
 	{
         $site->update($request->all());
-        return redirect()->route('server.site.show', [$server, $site]);
+        return redirect()->route('site.show', $site);
 	}
 
 	/**
@@ -84,10 +84,10 @@ class SiteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($server, $site)
+	public function destroy($site)
 	{
         $site->delete();
-        return redirect()->route('server.show', $server);
+        return redirect('home');
 	}
 
 }

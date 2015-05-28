@@ -8,7 +8,7 @@
                     <div class="panel-heading">
                         Site
                         <span class="pull-right">
-                            <a href="{{ route('server.site.edit', [$server, $site]) }}">Edit</a>
+                            <a href="{{ route('site.edit', $site) }}">Edit</a>
                         </span>
                     </div>
 

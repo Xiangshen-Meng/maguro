@@ -33,8 +33,8 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-        $servers = Auth::user()->servers;
-		return view('home', compact('servers'));
+        $sites = Auth::user()->sites;
+		return view('home', compact('sites'));
 	}
 
 }

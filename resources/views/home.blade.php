@@ -13,26 +13,26 @@
                             <caption>All servers.</caption>
                             <thead>
                             <tr>
-                                <th>Server name</th>
-                                <th>Server Address</th>
-                                <th>Admin User</th>
+                                <th>Site Name</th>
+                                <th>Site Domain</th>
+                                <th>Site Port</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($servers as $server)
+                            @foreach ($sites as $site)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('server.show', $server) }}">{{ $server->name }}</a>
+                                        <a href="{{ route('site.show', $site) }}">{{ $site->name }}</a>
                                     </td>
-                                    <td>{{ $server->address }}</td>
-                                    <td>{{ $server->admin_user }}</td>
+                                    <td>{{ $site->domain }}</td>
+                                    <td>{{ $site->port }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <a href="{{ route('server.create') }}" class="btn btn-primary">
-                        Create Server
+                    <a href="{{ route('site.create') }}" class="btn btn-primary">
+                        Create Site
                     </a>
 				</div>
 			</div>
