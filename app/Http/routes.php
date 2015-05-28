@@ -20,6 +20,5 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('server/{server}/bash', 'ServerController@bash');
 Route::resource('server', 'ServerController');
 Route::resource('site', 'SiteController', ['except' => ['index']]);

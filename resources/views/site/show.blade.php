@@ -19,6 +19,19 @@
                         <p>{{ $site->domain }}</p>
                         <h4>Site Port</h4>
                         <p>{{ $site->port }}</p>
+                        <hr/>
+                        <h4>Cleanup Default Bash</h4>
+                        <blockquote>
+                            {{ $site->cleanupDefaultBash() }}
+                        </blockquote>
+                        <h4>Create Site Bash</h4>
+                        <blockquote>
+                            {{ $site->createBash() }}
+                        </blockquote>
+                        <h4>Remove Site Bash</h4>
+                        <blockquote>
+                            {{ $site->removeBash() }}
+                        </blockquote>
                     </div>
                 </div>
             </div>
